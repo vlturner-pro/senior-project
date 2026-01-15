@@ -1,7 +1,4 @@
-# Research nslookup (python)
-# Add timer/number + stats
-# Binding port - your pc, sniff- anything directed at ip
-# Sniffing is easy on a hub, difficult on switch
+# The functions used for gathering packets through port monitoring and Scapy
 
 # Scapy
 from scapy.all import *
@@ -34,9 +31,8 @@ def get_active_interfaces():
         # Check if the interface is up and running
         if interface_statuses[interface].isup:
             for addr in addr_info:
-                # We're interested in IPv4 addresses
+                # Looking for IPv4 addresses
                 if addr.family == socket.AF_INET:
-                    #active_interfaces[interface] = addr.address
                     active_interfaces[interface + " (Local)"] = addr.address
     #print(active_interfaces)
     return active_interfaces
@@ -1150,4 +1146,5 @@ def get_fqdn(ip):
     except socket.herror:
         return f"Could not resolve FQDN for {ip}"
     except Exception as e:
+
         return str(e)
