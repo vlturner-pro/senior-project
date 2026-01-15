@@ -162,7 +162,6 @@ def buildUI():
     details_scroll = tk.Scrollbar(details_master)
 
     global packet_details
-    #packet_details = tk.Text(details_master, wrap='word', height=10, width=90, yscrollcommand=details_scroll.set)
     packet_details = tk.Text(details_master, wrap='word', height=15, width=90, yscrollcommand=details_scroll.set)
     packet_details.grid(row=0, column=0)
     packet_details.config(state="disabled")
@@ -180,7 +179,6 @@ def buildUI():
     stats_scroll = tk.Scrollbar(stats_master)
 
     global runtime_stats
-    #runtime_stats = tk.Text(stats_master, wrap='word', height=10, width=90, yscrollcommand=stats_scroll.set)
     runtime_stats = tk.Text(stats_master, wrap='word', height=15, width=90, yscrollcommand=stats_scroll.set)
     runtime_stats.grid(row=0, column=0)
     runtime_stats.config(state="disabled")
@@ -199,7 +197,6 @@ def Listen():
         listenThread = threading.Thread(None, sniffer.main)
         _listening = True
         listenThread.start()
-        #listenThread.run()
         
 
 # Sends a message to packet sniffer thread to stop sniffing
@@ -229,12 +226,13 @@ def displayPacket(packetEntry):
         proto = "UDP"
 
     # Application Layer Protocol
-    # Ports: 23=TELNET, 20=FTP(data) 21=FTP(control) (file transfer proto), 69=TFTP(trivial file transfer proto- simplified ftp), 2049=NFS (network file system), 25=SMTP(simple mail transfer proto), 515=LPD(line printer daemon- for printer sharing), 161=SNMP(TCP) 162=SNMP(UDP) (simple network management proto- gathers data about network),
-    # 53=DNS(domain name system- site name to ip), 67,68=DHCP(dynamic host config proto- gives ip addresses to hosts), 80=HTTP/HTTPS(duh), 443=HTTPS, 110=POP(post office proto), 6667=IRC(internet relay chat- text-based- Discord?), 
+    # Ports: 23=TELNET (terminal emulation), 20=FTP(data) 21=FTP(control) (file transfer proto), 69=TFTP(trivial file transfer proto), 2049=NFS (network file system), 25=SMTP(simple mail transfer proto), 
+    # 515=LPD(line printer daemon- for printer sharing), 161=SNMP(polling) 162=SNMP(traps) (simple network management proto- gathers data about network), 53=DNS(domain name system- site name to ip),
+    # 67(server listens),68(client listens)=DHCP(dynamic host config proto- gives ip addresses to hosts), 80=HTTP, 443=HTTPS, 110=POP(post office proto), 6667=IRC(internet relay chat)
     
     # Details section of packet display, grab app layer proto, dest port number, or some other detail, if port not contained in TL proto header
     # The details will be unknown if the packet uses an unsupported TL proto
-    #TODO: Add support for other TL protos
+    #TODO: Add support for other Transport Layer protos
     if proto == "TCP" or proto == "UDP":
         # Check to see if the port is a number (scapy gives app layer names if it knows them)
         try:
@@ -655,6 +653,7 @@ def confirmReset():
         resetData()
     else:
         print("Reset canceled")
+
 
 
 
