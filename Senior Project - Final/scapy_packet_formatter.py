@@ -39,7 +39,7 @@ def scapy_ipv4_packet(scapy_packet):
     # Header Checksum
     header_checksum = ipv4.chksum
 
-    #TODO: Check if more layers in packet. If not, use raw?
+    # TODO: Add additional check for packets with no additional layers, and include raw payload in this case
     data = None
 
     return version, header_length, dscp, ecn, total_len, identification, flags_r, flags_df, flags_mf, fragment_offset, ttl, proto, header_checksum, src, target, data
@@ -133,5 +133,6 @@ def scapy_udp_segment(scapy_packet):
     if scapy_packet.haslayer("Raw"):
         raw = scapy_packet["Raw"]
         data = raw.load
+
 
     return src_port, dest_port, size, checksum, data
