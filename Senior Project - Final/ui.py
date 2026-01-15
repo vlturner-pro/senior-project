@@ -1,3 +1,5 @@
+# The UI for the program - Run this file to run sniffer
+
 import tkinter as tk
 from tkinter import ttk
 import packet_sniffer_fixed as sniffer
@@ -658,3 +660,4 @@ def confirmReset():
 
 
 main()
+
