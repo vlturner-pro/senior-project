@@ -6,7 +6,7 @@ import socket
 import sys
 
 
-# Unpack ethernet frame (not needed?)
+# Unpack ethernet frame (not needed)
 # Frame format: Receiver (6by), Sender (6by), Type (2by), Payload(46-1500by)
 # Payload begins byte 14
 def ethernet_frame(data):
@@ -70,7 +70,7 @@ def ipv4_packet(data):
     #identification, ttl, proto, src, target = struct.unpack('! 4x 2f 2x B B 2x 4s 4s', data[:20])
     #b'' means a sequence of bytes
 
-    #CHECK
+    
     # Bytes 6-7
     flags_fragment_offset_bytes = data[6:8]
     flags_fragment_offset = int.from_bytes(flags_fragment_offset_bytes, sys.byteorder)
@@ -109,7 +109,7 @@ def ipv4(addr):
 
 
 # TODO: In UI, show icmp type based on icmp code here
-# Extended header needed? (Bytes 4-7)
+# Extended header may be needed (Bytes 4-7)
 # Unpacks ICMP packet
 def icmp_packet(data):
     # First 4 bytes (header)
@@ -203,7 +203,3 @@ def udp_segment(data):
 
 
 #TODO: Add support for IPv6
-# Unpacks IPv6 packet
-#def ipv6_packet(data):
-#    version_class_flow = data[0]
-#    version = version_class_flow >> 18
